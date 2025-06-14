@@ -1,4 +1,4 @@
-import './style.css';
+import "@/index.css";
 
 const dummyEvents = [
   {
@@ -22,8 +22,8 @@ const dummyEvents = [
 function Home() {
   return (
     <div className="event-list">
-      <h2>Upcoming Events</h2>
-      <div className="events">
+      <h2 className="event-heading">Upcoming Events</h2>
+      <div className="events-grid">
         {dummyEvents.map(event => (
           <div className="event-card" key={event.id}>
             <img src={event.image} alt={event.name} />
@@ -31,7 +31,7 @@ function Home() {
             <p>Type: {event.type}</p>
             <p>City: {event.city}</p>
             <p>{event.priceRange}</p>
-            <button>View Details</button>
+            <button className="details-btn">View Details</button>
           </div>
         ))}
       </div>
