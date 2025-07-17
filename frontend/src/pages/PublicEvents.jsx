@@ -16,6 +16,7 @@ export default function PublicEvents() {
   }, []);
 
   return (
+    <div class="home">
     <div className="public-events">
       <h2>Explore Events</h2>
       <div className="event-grid">
@@ -35,6 +36,7 @@ export default function PublicEvents() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

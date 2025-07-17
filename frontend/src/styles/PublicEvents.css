@@ -92,3 +92,13 @@
     grid-template-columns: 1fr;
   }
 }
+
+.home {
+  background-image: url("/publicevent1.jpeg"); /* replace with your correct path */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: 2rem;
+}

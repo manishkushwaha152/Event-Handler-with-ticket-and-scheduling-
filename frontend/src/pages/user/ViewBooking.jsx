@@ -154,6 +154,7 @@ export default function ViewBooking() {
   }
 
   return (
+    <div className="booking-wrapper">
     <div className="view-bookings-container">
       <h2>📄 Your Bookings</h2>
 
@@ -246,6 +247,7 @@ export default function ViewBooking() {
       </div>
 
       
+    </div>
     </div>
   );
 }

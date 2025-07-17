@@ -134,10 +134,7 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-// 🚫 Cancel Booking
-// ✅ Updated cancelBooking controller to fix seat mutation issue
 
-// bookingController.js (updated cancelBooking controller)
 
 exports.cancelBooking = async (req, res) => {
   try {

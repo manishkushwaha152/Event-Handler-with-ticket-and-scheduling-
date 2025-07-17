@@ -36,6 +36,7 @@ export default function SearchEvents() {
   };
 
   return (
+    <div className="book-ticket">
     <div className="search-events-container">
       <h2>🔍 Search Events</h2>
 
@@ -68,6 +69,7 @@ export default function SearchEvents() {
           ))
         )}
       </div>
+    </div>
     </div>
   );
 }

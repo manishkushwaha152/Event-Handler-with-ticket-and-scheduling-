@@ -110,3 +110,16 @@
 .view-details-btn:hover {
   background-color: #2c3e91;
 }
+
+.book-ticket {
+  min-height: 100vh;
+  background-image: url("/publicevent1.jpeg"); /* ✅ Ensure file is in /public */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 2rem;
+}
+

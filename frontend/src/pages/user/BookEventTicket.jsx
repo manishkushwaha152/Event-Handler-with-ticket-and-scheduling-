@@ -123,6 +123,7 @@ export default function BookEventTicket() {
   const rows = [...new Set(filteredSeats.map((seat) => seat.row))];
 
   return (
+    <div className="book-ticket-bg">
     <div className="book-ticket-container">
       <h2 className="book-ticket-title">🎟 Book Event Ticket</h2>
       <div className="book-ticket-form">
@@ -273,6 +274,7 @@ export default function BookEventTicket() {
           <p>🎉 Ticket booked successfully!</p>
         </div>
       )}
+    </div>
     </div>
   );
 }

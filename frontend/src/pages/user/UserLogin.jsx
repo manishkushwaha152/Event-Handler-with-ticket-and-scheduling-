@@ -34,6 +34,7 @@ export default function UserLogin() {
   };
 
   return (
+     <div className="login-page-bg">
     <div className="auth-container">
       <h2 className="auth-title">User Login</h2>
       <form onSubmit={handleSubmit} className="auth-form">
@@ -60,6 +61,21 @@ export default function UserLogin() {
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
+      <div className="social-login">
+  <p className="social-text">or sign in with</p>
+  <div className="social-buttons">
+    <button type="button" className="social-button google">
+      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" />
+      Login in with Google
+    </button>
+    <button type="button" className="social-button facebook">
+      <img src="https://img.icons8.com/color/16/000000/facebook-new.png" alt="Facebook" />
+      Login in with Facebook
+    </button>
+  </div>
+</div>
+
+    </div>
     </div>
   );
 }

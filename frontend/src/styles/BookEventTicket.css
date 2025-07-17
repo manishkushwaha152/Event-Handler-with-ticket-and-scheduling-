@@ -1,6 +1,6 @@
 .book-ticket-container {
-  max-width: 900px;
-  margin: 2rem auto;
+  max-width: 600px;
+  margin: 3rem 0 3rem 3rem;
   padding: 2rem;
   background: #ffffff;
   border-radius: 12px;
@@ -166,3 +166,17 @@
   color: #888;
   margin: 0.5rem 0;
 }
+
+.book-ticket-bg {
+  min-height: 100vh;
+  background-image: url("/booking.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: flex-start; /* stick to top */
+  justify-content: flex-start; /* push left */
+  padding: 2rem;
+}
+
+

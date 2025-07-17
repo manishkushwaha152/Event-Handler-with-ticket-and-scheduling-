@@ -71,6 +71,7 @@ export default function UserRegister() {
   };
 
   return (
+    <div className="login-page-bg">
     <div className={`auth-container ${darkMode ? "dark" : ""}`}>
       <button onClick={toggleDarkMode} className="toggle-dark-btn">
         {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
@@ -121,13 +122,23 @@ export default function UserRegister() {
           {loading ? "Registering..." : "Register"}
         </button>
       </form>
-
+      <div className="social-login">
+  <p className="social-text">or sign up with</p>
+  <div className="social-buttons">
+    <button type="button" className="social-button google">
+      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" />
+      Sign up with Google
+    </button>
+    
+  </div>
+</div>
       {showModal && (
         <div className="modal success">
           <p>Registration successful!</p>
           <p>Redirecting to Login ...</p>
         </div>
       )}
+    </div>
     </div>
   );
 }
