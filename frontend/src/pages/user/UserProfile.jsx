@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
-import "@/index.css"; // Adjust path if needed
+import "@/index.css";
+import api from "@/utils/api";
 
 const UserProfile = () => {
-  const [user, setUser] = useState({
-    name: "Manish Kushwaha",
-    email: "manish@example.com",
-    mobile: "9876543210",
-  });
+  const [user, setUser] = useState(null); // null initially
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [bookings, setBookings] = useState([
-    {
-      id: 1,
-      event: "Tech Summit",
-      date: "2025-07-01",
-      ticket: "VIP",
-    },
-    {
-      id: 2,
-      event: "Startup Expo",
-      date: "2025-07-10",
-      ticket: "General",
-    },
-  ]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get("/users/profile");
+        setUser(res.data.user);
+        setBookings(res.data.bookings || []);
+      } catch (err) {
+        console.error("Failed to load profile", err);
+        setError("Failed to load profile data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
 
-  // If you want to load data from backend later
-  // useEffect(() => {
-  //   fetchUserData();
-  // }, []);
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
+  if (!user) return <div className="error">No user data found</div>;
 
   return (
     <div className="profile-container">
@@ -38,13 +38,17 @@ const UserProfile = () => {
       </div>
 
       <h3 className="booking-heading">My Bookings</h3>
-      <ul className="booking-list">
-        {bookings.map((booking) => (
-          <li key={booking.id} className="booking-item">
-            <strong>{booking.event}</strong> - {booking.ticket} - {booking.date}
-          </li>
-        ))}
-      </ul>
+      {bookings.length === 0 ? (
+        <p>No bookings yet.</p>
+      ) : (
+        <ul className="booking-list">
+          {bookings.map((booking) => (
+            <li key={booking.id} className="booking-item">
+              <strong>{booking.event}</strong> — {booking.ticket} — {booking.date}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

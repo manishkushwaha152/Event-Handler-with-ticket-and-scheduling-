@@ -1,61 +1,66 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "../components/ProtectedRoute";
 
-// User Pages
-import Login from "../pages/user/Login";
-import Register from "../pages/user/Register";
-import SearchEvent from "../pages/user/SearchEvent";
-import BookEvent from "../pages/user/BookEvent";
-import BookingList from "../pages/user/BookingList";
-import UserProfile from "../pages/user/UserProfile";
-
-// Owner Pages
-import OwnerLogin from "../pages/owner/OwnerLogin";
-import CreateEvent from "../pages/owner/CreateEvent";
-import CreateTicket from "../pages/owner/CreateTicket";
-import EventDetails from "../pages/owner/EventDetails";
-import ManageEvents from "../pages/owner/ManageEvents";
-import ManageTickets from "../pages/owner/ManageTickets";
-import ViewBooking from "../pages/owner/ViewBooking";
-import OwnerProfile from "../pages/owner/OwnerProfile";
-
-// Admin Pages
-import AdminLogin from "../pages/admin/AdminLogin";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import ApproveEvents from "../pages/admin/ApproveEvents";
-import ViewUsers from "../pages/admin/ViewUsers";
-
-// Common
+//  Pages
 import Home from "../pages/Home";
+import CategoryPage from "../pages/CategoryPage";
+import Unauthorized from "../pages/Unauthorized";
+import PublicEvents from "../pages/PublicEvents";
+
+//  User Pages
+import Login from "../pages/user/UserLogin";
+import Register from "../pages/user/UserRegister";
+import UserDashboard from "../pages/user/UserDashboard";
+import ViewBooking from "../pages/user/ViewBooking";
+import BookEventTicket from "../pages/user/BookEventTicket";
+import SearchEvents from "../pages/user/SearchEvents";
+
+//  Owner Pages
+import OwnerLogin from "../pages/owner/OwnerLogin";
+import OwnerRegister from "../pages/owner/OwnerRegister";
+import OwnerDashboard from "../pages/owner/OwnerDashboard";
+import CreateEvent from "../pages/owner/CreateEvent";
+import OwnerEvents from "../pages/owner/OwnerEvents";
+import ManageEvent from "../pages/owner/ManageEvent";
+import EditEvent from "../pages/owner/EditEvent";
+import CreateTicket from "../pages/owner/CreateTicket";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Common */}
+      {/*  Public Routes */}
       <Route path="/" element={<Home />} />
-
-      {/* User */}
+      <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/search" element={<SearchEvent />} />
-      <Route path="/event/:id/book" element={<BookEvent />} />
-      <Route path="/my-bookings" element={<BookingList />} />
-      <Route path="/user-profile" element={<UserProfile />} />
-
-      {/* Owner */}
       <Route path="/owner/login" element={<OwnerLogin />} />
-      <Route path="/create-event" element={<CreateEvent />} />
-      <Route path="/create-ticket" element={<CreateTicket />} />
-      <Route path="/event/:id" element={<EventDetails />} />
-      <Route path="/owner/events" element={<ManageEvents />} />
-      <Route path="/owner/tickets" element={<ManageTickets />} />
-      <Route path="/owner/bookings" element={<ViewBooking />} />
-      <Route path="/owner/profile" element={<OwnerProfile />} />
+      <Route path="/owner/register" element={<OwnerRegister />} />
+      <Route path="/events" element={<PublicEvents />} />
+      <Route path="/category/:name" element={<CategoryPage />} />
 
-      {/* Admin */}
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route path="/admin/dashboard" element={<AdminDashboard />} />
-      <Route path="/admin/approve-events" element={<ApproveEvents />} />
-      <Route path="/admin/view-users" element={<ViewUsers />} />
+      {/*  Public access to BookEventTicket via ID */}
+      <Route path="/book/:id" element={<BookEventTicket />} />
+
+      {/*  Protected User Routes */}
+      <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+        <Route path="/user/dashboard" element={<UserDashboard />} />
+        <Route path="/user/bookings" element={<ViewBooking />} />
+        <Route path="/user/book/event-ticket" element={<BookEventTicket />} />
+        <Route path="/user/search" element={<SearchEvents />} />
+      </Route>
+
+      {/* Protected Owner Routes */}
+      <Route element={<ProtectedRoute allowedRoles={["owner"]} />}>
+        <Route path="/owner/dashboard" element={<OwnerDashboard />} />
+        <Route path="/create-event" element={<CreateEvent />} />
+        <Route path="/owner/create-ticket" element={<CreateTicket />} />
+        <Route path="/owner/event" element={<OwnerEvents />} />
+        <Route path="/owner/manage-event" element={<ManageEvent />} />
+        <Route path="/owner/event/:id/edit" element={<EditEvent />} />
+      </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

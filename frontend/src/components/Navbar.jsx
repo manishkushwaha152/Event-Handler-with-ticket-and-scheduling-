@@ -1,33 +1,76 @@
-import { Link } from "react-router-dom";
-import "@/App.css";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "@/styles/Navbar.css";
 
- // Ensure this is imported if not globally done
+export default function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [role, setRole] = useState(localStorage.getItem("role") || "");
 
-function Navbar() {
+  // ✅ Update role on route change
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    const ownerToken = localStorage.getItem("ownerToken");
+    const currentRole = localStorage.getItem("role");
+
+    if ((userToken || ownerToken) && currentRole) {
+      setRole(currentRole);
+    } else {
+      setRole("");
+    }
+  }, [location]);
+
+  // ✅ Logout: clear tokens + role
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("ownerToken");
+    localStorage.removeItem("role");
+    localStorage.removeItem("ownerId");
+    setRole("");
+    navigate("/");
+  };
+
   return (
     <nav className="navbar">
-      <div className="navbar-container">
-        {/* Left side links */}
-        <div className="navbar-section left">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/create-event" className="nav-link">Create Event</Link>
-          <Link to="/create-ticket" className="nav-link">Create Ticket</Link>
-          <Link to={`/event/${123}/book`} className="nav-link">Book Now</Link> {/* use a dummy id for now */}
-          <Link to="/my-bookings" className="nav-link">My Bookings</Link>
-        </div>
-
-        {/* Center */}
-        <div className="navbar-section center">
-          <Link to="/search" className="nav-link">Search</Link>
-        </div>
-
-        {/* Right side */}
-        <div className="navbar-section right">
-          <Link to="/login" className="nav-link">Login</Link>
-          <Link to="/register" className="nav-link">Register</Link>
-        </div>
+      <div className="nav-logo" onClick={() => navigate("/")}>
+        🎫 Event Handler
       </div>
+
+      <ul className="nav-links">
+        <li><Link to="/">Home</Link></li>
+
+        {/* 👤 USER NAVBAR */}
+        {role === "user" && (
+          <>
+            <li><Link to="/events">View Events</Link></li>
+            <li><Link to="/user/book/event-ticket">Book Event</Link></li>
+            <li><Link to="/user/search">Search Event</Link></li>
+            <li><Link to="/user/bookings">My Bookings</Link></li>
+            <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>
+          </>
+        )}
+
+        {/* 🧑‍💼 OWNER NAVBAR */}
+        {role === "owner" && (
+          <>
+            <li><Link to="/owner/event">My Events</Link></li>
+            <li><Link to="/create-event">Create Event</Link></li>
+            <li><Link to="/owner/create-ticket">Create Ticket</Link></li>
+            <li><Link to="/owner/manage-event">Manage Event</Link></li>
+            <li><Link to="/owner/view-bookings">View Bookings</Link></li>
+            <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>
+          </>
+        )}
+
+        {/* 🚪 GUEST NAVBAR */}
+        {!role && (
+          <>
+            <li><Link to="/events">View Events</Link></li>
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/register">Register</Link></li>
+          </>
+        )}
+      </ul>
     </nav>
   );
 }
-export default Navbar;

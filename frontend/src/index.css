@@ -816,3 +816,73 @@
 .admin-card button:hover {
   background-color: #1d4ed8;
 }
+
+
+/* admin dashboard */
+.dashboard-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.dashboard-link {
+  padding: 1rem 2rem;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-link:hover {
+  background-color: #0056b3;
+}
+
+/* 
+admin login */
+.error-text {
+  color: red;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* footer */
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1rem 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-links {
+  margin-top: 0.5rem;
+}
+
+.footer-links a {
+  color: #ccc;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}

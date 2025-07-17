@@ -1,20 +1,20 @@
-// vite.config.js
-
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// 👇 __dirname equivalent setup in ESM
+// Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
-// ✅ Now use __dirname safely
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'), // maps @ to ./src
+      '@': path.resolve(__dirname, './src'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@pages': path.resolve(__dirname, './src/pages'),
     },
   },
 });

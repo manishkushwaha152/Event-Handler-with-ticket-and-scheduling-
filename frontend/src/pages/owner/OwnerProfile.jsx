@@ -1,6 +1,6 @@
-// src/pages/owner/OwnerProfile.jsx
 import { useState, useEffect } from "react";
-import "../../index.css"; // Update path as needed
+import api from "@/utils/api";
+import "../../index.css";
 
 export default function OwnerProfile() {
   const [profile, setProfile] = useState({
@@ -9,26 +9,44 @@ export default function OwnerProfile() {
     organization: "",
   });
 
-  // Simulate fetch profile data on component mount
+  // ✅ Fetch owner profile on mount
   useEffect(() => {
-    // TODO: Replace with API call later
-    const dummyData = {
-      name: "Manish Kumar",
-      email: "owner@example.com",
-      organization: "Event Masters Inc.",
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("ownerToken"); // or use auth context
+        const res = await api.get("/owner/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProfile(res.data);
+      } catch (err) {
+        console.error("Failed to load profile", err);
+        alert("Failed to load profile");
+      }
     };
-    setProfile(dummyData);
+
+    fetchProfile();
   }, []);
 
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    // TODO: send updated profile to backend
-    alert("Profile updated!");
-    console.log("Updated Profile:", profile);
+    try {
+      const token = localStorage.getItem("ownerToken");
+      await api.put("/owner/profile", profile, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert("Profile updated!");
+    } catch (err) {
+      alert("Update failed!");
+      console.error(err);
+    }
   };
 
   return (

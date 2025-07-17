@@ -1,9 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const { protect } = require('../middleware/authMiddleware');
+// routes/ownerRoutes.js
 
-router.get('/profile', protect, (req, res) => {
-  res.json(req.owner);
-});
+const express = require("express");
+const { getMyEvents } = require("../controllers/owner/ownerController");
+const { authenticate } = require("../middleware/authMiddleware");
+
+const router = express.Router();
+
+router.get("/events", authenticate, getMyEvents);
 
 module.exports = router;
