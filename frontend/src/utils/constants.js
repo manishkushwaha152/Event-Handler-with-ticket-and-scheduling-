@@ -1,2 +1,2 @@
-export const BASE_URL = "https://event-handler-with-ticket-and-scheduling.onrender.com";
+export const BASE_URL = "https://event-handler-with-ticket-and-scheduling.onrender.com/api";
  
