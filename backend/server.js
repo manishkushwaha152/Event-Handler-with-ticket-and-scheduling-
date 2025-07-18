@@ -19,7 +19,7 @@ const app = express();
 // Middleware for parsing requests
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://event-handler-with-ticket-and-scheduling-su7h.onrender.com",
     credentials: true,
   })
 );
